@@ -6,5 +6,14 @@ if __name__ == '__main__':
     print args.algorithm
     print type(args.thePuzzle[0])
     puzzle = Puzzle(args.thePuzzle)
-    print puzzle.solved()
-    
+    print puzzle.possible_moves()
+    print puzzle.move(1)
+    print "---------"
+    print puzzle.move(3)
+    print "---------"
+    print puzzle.move(5)
+    print "---------"
+    print puzzle.move(7)
+    print "---------"
+    print puzzle.move(2)
+
