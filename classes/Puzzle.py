@@ -21,4 +21,5 @@ class Puzzle:
     def __eq__(self, other):
         return self.board == other.board
         
-
+    def solved(self):
+        return self.board == range(1,9) + [0]
