@@ -18,7 +18,7 @@ def getCmdArgs():
         dest="thePuzzle",
         metavar='N',
         type=int,
-        nargs=8,
+        nargs=9,
         default=[1,2,3,4,0,5,6,7,8],
         help="The 8-puzzle required to be solved. 0 being the empty spot. e.g.: 1 2 3 4 0 8 7 6 5"
     )    
