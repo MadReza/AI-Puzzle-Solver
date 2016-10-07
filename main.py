@@ -6,5 +6,7 @@ if __name__ == '__main__':
     args = getCmdArgs()
     puzzle = Puzzle(args.thePuzzle)
     solver = Solver(puzzle, args.algorithm)
+    solver.solve()
+    solver.dfs()
 
 

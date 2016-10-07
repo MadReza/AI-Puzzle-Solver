@@ -23,12 +23,12 @@ class Puzzle:
     def __hash__(self):
         h = 0
         for pos, value in enumerate(self.board):
-            h ^= value << pos
+            h ^= pos << value
         return h
 
     def __eq__(self, other):
-        return self.board == other.board
-
+        return self.board == other.board        
+    
     """
         Expected solution is the empty spot to be at bottom right
         Expecting:
