@@ -5,13 +5,12 @@
 from math import sqrt
 
 class Puzzle:
-    width = 0
-    hole_position = 0
     
     def __init__(self, board):
         self.board = board
         self.width = int(sqrt(len(board)))  #TODO need to make this squared puzzles
         self.hole_position = board.index(0)
+        self.solvedBoard = range(1,self.width**2) + [0]
 
     def __str__(self):
         return "\n".join(str(self.board[start : start + self.width])
@@ -38,7 +37,7 @@ class Puzzle:
             7 8 0
     """    
     def solved(self):
-        return self.board == range(1,self.width**2) + [0]
+        return self.board == self.solvedBoard
 
     def possible_moves(self):
         moves = []

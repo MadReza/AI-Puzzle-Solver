@@ -14,26 +14,25 @@ class Solver:
         print self.algorithm
 
     def dfs(self):
-        q = deque()
-        solution_path = deque()
-        q.append(self.initial_puzzle)
+        puzzles_available = deque()
+        previous_puzzle = {}    #same as seen but track who brought you there
         seen = set()
+        
+        puzzles_available.append(self.initial_puzzle)
+        previous_puzzle[self.initial_puzzle] = None
 
-        while len(q):
-            current_puzzle = q.pop()    #FILO
+        while len(puzzles_available):
+            current_puzzle = puzzles_available.pop()    #FILO
             seen.add(current_puzzle)
-            print current_puzzle
-            print "-------"
+            
             if current_puzzle.solved():
                 print "Solved" #delete later
-                return "solution" #replace by path to solution
+                return previous_puzzle
 
             for new_hole_position in current_puzzle.possible_moves():
                 new_board = current_puzzle.move(new_hole_position)
                 if new_board not in seen:
-                    q.append(new_board)
-                    
-                
-                    
+                    puzzles_available.append(new_board)
+                    previous_puzzle[new_board] = current_puzzle
             
         return None #No Solutions found
