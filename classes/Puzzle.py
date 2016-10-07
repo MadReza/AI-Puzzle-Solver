@@ -2,13 +2,15 @@
     Used as reference: http://codereview.stackexchange.com/a/76949
 """
 
+from math import sqrt
+
 class Puzzle:
-    width = 3  # TODO: currently for 8 puzzle. Change algo for bigger later.
-    #Using math.sqrt(board) to check if valid board for future use
+    width = 0
     hole_position = 0
     
     def __init__(self, board):
         self.board = board
+        self.width = int(sqrt(len(board)))  #TODO need to make this squared puzzles
         self.hole_position = board.index(0)
 
     def __str__(self):
@@ -20,8 +22,8 @@ class Puzzle:
     """
     def __hash__(self):
         h = 0
-        for i, value in enumerate(self.board):
-            h ^= value << i
+        for pos, value in enumerate(self.board):
+            h ^= value << pos
         return h
 
     def __eq__(self, other):
@@ -30,12 +32,13 @@ class Puzzle:
     """
         Expected solution is the empty spot to be at bottom right
         Expecting:
+             3x3
             1 2 3
             4 5 6
             7 8 0
     """    
     def solved(self):
-        return self.board == range(1,9) + [0] #TODO change to expandable board
+        return self.board == range(1,self.width**2) + [0]
 
     def possible_moves(self):
         moves = []
@@ -49,6 +52,9 @@ class Puzzle:
                 moves.append(dest)
         return moves
 
+    """
+        Return new board with new position
+    """
     def move(self, destination):
         board = self.board[:] #deep copy
         if destination not in self.possible_moves():

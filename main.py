@@ -7,13 +7,25 @@ if __name__ == '__main__':
     print type(args.thePuzzle[0])
     puzzle = Puzzle(args.thePuzzle)
     print puzzle.possible_moves()
-    print puzzle.move(1)
+    print hash(puzzle)
     print "---------"
-    print puzzle.move(3)
+    x = puzzle.move(1)
+    print x
+    print hash(x)
     print "---------"
-    print puzzle.move(5)
+    x = puzzle.move(3)
+    print x
+    print hash(x)
     print "---------"
-    print puzzle.move(7)
+    x = puzzle.move(5)
+    print x
+    print hash(x)
     print "---------"
-    print puzzle.move(2)
+    x = puzzle.move(7)
+    print x
+    print hash(x)
+    print "---------"
+    x = puzzle.move(2)
+    print x
+    print hash(x)
 
