@@ -15,8 +15,8 @@ class Solver:
 
     def dfs(self):
         puzzles_available = deque()
-        previous_puzzle = {}    #same as seen but track who brought you there
-        seen = set()
+        previous_puzzle = {}    
+        seen = set()    #We can use the previous_puzzle alone, However performance lowers
         
         puzzles_available.append(self.initial_puzzle)
         previous_puzzle[self.initial_puzzle] = None
