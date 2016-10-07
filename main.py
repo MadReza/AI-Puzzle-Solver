@@ -6,4 +6,5 @@ if __name__ == '__main__':
     print args.algorithm
     print type(args.thePuzzle[0])
     puzzle = Puzzle(args.thePuzzle)
-    print puzzle
+    print puzzle.solved()
+    
