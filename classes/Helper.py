@@ -13,6 +13,15 @@ def getCmdArgs():
     )
 
     parser.add_argument(
+        '-he',
+        action="store",
+        dest="heuristic",
+        choices=["manhattan", "misplaced", "min"],
+        default="min",
+        help='Selected heuristic to solve Puzzle. Default: Min'
+    )
+
+    parser.add_argument(
         '-p',
         action="store",
         dest="thePuzzle",

@@ -1,15 +1,16 @@
-from Puzzle import Puzzle
 from collections import deque
+from Heuristic import *
+from Puzzle import Puzzle
 from Queue import PriorityQueue
-from Heuristic import manhattan_distance
 
 class Solver:
     algorithm=""
     initial_puzzle = None
 
-    def __init__(self, puzzle, algorithm="a*"):
+    def __init__(self, puzzle, algorithm="a*", heuristic="min"):
         self.algorithm = algorithm
         self.initial_puzzle = puzzle
+        self.h = get_heuristic_function(heuristic)
 
     def solve(self):
         print self.initial_puzzle
@@ -46,7 +47,7 @@ class Solver:
                 new_cost = cost_so_far[current_puzzle]
                 new_cost += 1      #As all directions is 1, see general comment
                 if new_board not in seen:
-                    priority = manhattan_distance(new_board) + new_cost
+                    priority = self.h(new_board) + new_cost
                     puzzles_available.put(new_board, priority)
                     previous_puzzle[new_board] = current_puzzle
                     cost_so_far[new_board] = new_cost
@@ -72,7 +73,7 @@ class Solver:
             for new_hole_position in current_puzzle.possible_moves():
                 new_board = current_puzzle.move(new_hole_position)
                 if new_board not in seen:
-                    priority = manhattan_distance(new_board)
+                    priority = self.h(new_board)
                     puzzles_available.put(new_board, priority)
                     previous_puzzle[new_board] = current_puzzle
         

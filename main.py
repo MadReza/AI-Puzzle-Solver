@@ -1,7 +1,7 @@
 from classes.Helper import getCmdArgs
 from classes.Puzzle import Puzzle
 from classes.Solver import Solver
-from classes.Heuristic import ( misplaced, min )
+from classes.Heuristic import *
 
 def path_show(start, end, path):
     current = end
@@ -26,8 +26,16 @@ if __name__ == '__main__':
     solver = Solver(puzzle, args.algorithm)
     solver.solve()
 
-    print puzzle
-    print min(puzzle)
+    h = get_heuristic_function("min")
+    print h(puzzle)
+    print "______"
+    h = get_heuristic_function("manhattan")
+    print h(puzzle)
+    print "______"
+    h = get_heuristic_function("misplaced")
+    print h(puzzle)
+    print "______"
+
 
     dfs_solution = solver.dfs()
     bfs_solution = solver.bfs()

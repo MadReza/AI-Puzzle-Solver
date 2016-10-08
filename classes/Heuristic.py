@@ -1,4 +1,15 @@
 from Puzzle import Puzzle
+
+
+def get_heuristic_function(heuristic):
+    if heuristic == "manhattan":
+        return manhattan_distance
+    if heuristic == "misplaced":
+        return misplaced
+    if heuristic == "min":
+        return min
+    return None
+
 """
     Assuming the Goal puzzle is having the empty at bottom right
     up and down movement cost puzzle.width
