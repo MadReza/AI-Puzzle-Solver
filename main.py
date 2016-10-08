@@ -28,10 +28,11 @@ if __name__ == '__main__':
     dfs_solution = solver.dfs()
     bfs_solution = solver.bfs()
     best_first_solution = solver.best_first()
+    a_star_solution = solver.a_star()
     
     solved_puzzle = Puzzle([1,2,3,4,5,6,7,8,0])
     initial_puzzle = puzzle
-    path_show(initial_puzzle, solved_puzzle, best_first_solution)
+    path_show(initial_puzzle, solved_puzzle, a_star_solution)
 
 
 
