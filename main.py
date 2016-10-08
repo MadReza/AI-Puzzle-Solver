@@ -1,7 +1,8 @@
 from classes.Helper import getCmdArgs
 from classes.Puzzle import Puzzle
 from classes.Solver import Solver
-from classes.Heuristic import misplaced
+from classes.Heuristic import ( misplaced, min )
+
 def path_show(start, end, path):
     current = end
     previous = path      #As this is a dictionary with previous caller
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     solver.solve()
 
     print puzzle
-    print misplaced(puzzle)
+    print min(puzzle)
 
     dfs_solution = solver.dfs()
     bfs_solution = solver.bfs()

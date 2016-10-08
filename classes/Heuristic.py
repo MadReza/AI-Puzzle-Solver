@@ -31,3 +31,10 @@ def misplaced(puzzle):
             wrong_place += 1
             
     return wrong_place
+
+def min(puzzle):
+    mp = misplaced(puzzle)
+    man = manhattan_distance(puzzle)
+    if mp < man:
+        return mp
+    return man
