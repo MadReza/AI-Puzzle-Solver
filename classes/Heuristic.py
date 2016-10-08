@@ -22,3 +22,12 @@ def manhattan_distance(puzzle):
         steps += dist
         
     return steps
+
+def misplaced(puzzle):
+    wrong_place = 0
+
+    for pos, val in enumerate(puzzle.board):
+        if pos != ((val-1)%len(puzzle.board)):
+            wrong_place += 1
+            
+    return wrong_place
