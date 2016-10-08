@@ -3,8 +3,10 @@ from Puzzle import Puzzle
     Assuming the Goal puzzle is having the empty at bottom right
     up and down movement cost puzzle.width
     left and right movement cost 1
+	------
+	Logic might be a hard but test it out, it works ^^. TODO: cleaning
 """
-def Manhattan_Distance(puzzle):
+def manhattan_distance(puzzle):
     steps = 0
 
     for pos, val in enumerate(puzzle.board):
