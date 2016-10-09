@@ -16,7 +16,7 @@ def getCmdArgs():
         '-he',
         action="store",
         dest="heuristic",
-        choices=["manhattan", "misplaced", "min"],
+        choices=["manhattan", "misplaced", "min", "linear"],
         default="min",
         help='Selected heuristic to solve Puzzle. Default: Min'
     )
