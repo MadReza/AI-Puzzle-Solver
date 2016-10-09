@@ -26,23 +26,6 @@ if __name__ == '__main__':
     solver = Solver(puzzle, args.algorithm)
     solver.solve()
 
-    h = get_heuristic_function("min")
-    print h(puzzle)
-    print "______"
-    h = get_heuristic_function("manhattan")
-    print h(puzzle)
-    print "______"
-    h = get_heuristic_function("misplaced")
-    print h(puzzle)
-    print "______"
-    h = get_heuristic_function("linear")
-    print h(puzzle)
-    print "______"
-    h = get_heuristic_function("linear")
-    print h(puzzle)
-    print "______"
-
-
 
     dfs_solution = solver.dfs()
     bfs_solution = solver.bfs()
@@ -51,7 +34,9 @@ if __name__ == '__main__':
     
     solved_puzzle = Puzzle([1,2,3,4,5,6,7,8,0])
     initial_puzzle = puzzle
-    #path_show(initial_puzzle, solved_puzzle, a_star_solution)
+
+    if args.verbose:
+        path_show(initial_puzzle, solved_puzzle, a_star_solution)
 
 
 

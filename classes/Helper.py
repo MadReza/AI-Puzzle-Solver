@@ -22,6 +22,14 @@ def getCmdArgs():
     )
 
     parser.add_argument(
+        '-v',
+        action="store_true",
+        dest="verbose",
+        default=False,
+        help="Prints step by step solution to solve puzzle"
+    ) 
+
+    parser.add_argument(
         '-p',
         action="store",
         dest="thePuzzle",
