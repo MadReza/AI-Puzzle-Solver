@@ -8,6 +8,8 @@ def get_heuristic_function(heuristic):
         return misplaced
     if heuristic == "min":
         return min
+    if heuristic == "linear":
+        return linear_conflict
     return None
 
 """
@@ -33,6 +35,51 @@ def manhattan_distance(puzzle):
         steps += dist
         
     return steps
+"""
+Linear Conflicts occuring in same row or same col
+Each conflict is + 2 steps
++ Manhattan is the total steps required.
+"""
+def linear_conflict(puzzle):
+    floor = 0
+    ceil = puzzle.width
+    steps = 0
+
+    #check row conflicts
+    while ceil <= len(puzzle.board):
+        for pos in range(floor, ceil):
+             x = (puzzle.board[pos] - 1) % len(puzzle.board)    #0 is last position
+             if floor <= x < ceil:
+                 for new_pos in range(x+1, ceil):
+                     y = (puzzle.board[new_pos] - 1) % len(puzzle.board)
+                     if x > y:
+                         #conflict
+                         steps = steps + 2
+        floor += puzzle.width
+        ceil += puzzle.width
+
+    #check column conflicts
+    col = 0
+    while col < puzzle.width:
+        row = 0
+        while row < puzzle.width:
+            pos = col + row * puzzle.width
+            print "Pos: " + `pos`
+            val = (puzzle.board[pos] - 1) % len(puzzle.board)  #again because 0 is expected to be bottom right
+
+            if (val % puzzle.width) == col:
+                next_row = row + 1
+                while next_row < puzzle.width:
+                    print "PPos: " + `pos`
+                    next_pos = col + next_row * puzzle.width
+                    next_val = (puzzle.board[next_pos] - 1) % len(puzzle.board)
+                    if val < next_val and (next_val % puzzle.width) == col:
+                        steps = steps + 2
+                    next_row = next_row + 1
+            row = row + 1
+        col = col + 1
+            
+    return manhattan_distance(puzzle) + steps
 
 def misplaced(puzzle):
     wrong_place = 0

@@ -35,6 +35,9 @@ if __name__ == '__main__':
     h = get_heuristic_function("misplaced")
     print h(puzzle)
     print "______"
+    h = get_heuristic_function("linear")
+    print h(puzzle)
+    print "______"
 
 
     dfs_solution = solver.dfs()
