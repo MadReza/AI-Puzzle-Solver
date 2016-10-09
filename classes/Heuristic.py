@@ -10,6 +10,8 @@ def get_heuristic_function(heuristic):
         return min
     if heuristic == "linear":
         return linear_conflict
+    if heuristic == "nilsson":
+        return nilsson
     return None
 
 """
@@ -35,6 +37,25 @@ def manhattan_distance(puzzle):
         steps += dist
         
     return steps
+
+"""
+    Todo: Nilsson's sequence score.
+    Inadmissible
+"""
+def nilsson(puzzle):
+    steps = 0
+
+    goal = [1,2,3,8,0,4,7,6,5]
+    for pos, val in enumerate(puzzle.board):
+        if goal[pos] != val:
+            steps = steps + 2
+
+    #middle not open
+    if puzzle.board[4] != 0:
+        steps = steps + 1
+    
+    return manhattan_distance(puzzle) + steps
+
 """
 Linear Conflicts occuring in same row or same col
 Each conflict is + 2 steps
@@ -64,13 +85,11 @@ def linear_conflict(puzzle):
         row = 0
         while row < puzzle.width:
             pos = col + row * puzzle.width
-            print "Pos: " + `pos`
             val = (puzzle.board[pos] - 1) % len(puzzle.board)  #again because 0 is expected to be bottom right
 
             if (val % puzzle.width) == col:
                 next_row = row + 1
                 while next_row < puzzle.width:
-                    print "PPos: " + `pos`
                     next_pos = col + next_row * puzzle.width
                     next_val = (puzzle.board[next_pos] - 1) % len(puzzle.board)
                     if val < next_val and (next_val % puzzle.width) == col:
