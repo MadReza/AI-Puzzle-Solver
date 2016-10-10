@@ -27,6 +27,14 @@ def getCmdArgs():
         dest="verbose",
         default=False,
         help="Prints step by step solution to solve puzzle"
+    )
+	
+    parser.add_argument(
+        '-t',
+        action="store_true",
+        dest="test",
+        default=False,
+        help="Test all variations of Algorithsm and Heuristics"
     ) 
 
     parser.add_argument(

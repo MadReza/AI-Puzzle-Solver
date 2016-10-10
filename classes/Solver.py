@@ -2,20 +2,60 @@ from collections import deque
 from Heuristic import *
 from Puzzle import Puzzle
 from Queue import PriorityQueue
+import time
 
 class Solver:
     algorithm=""
     initial_puzzle = None
 
     def __init__(self, puzzle, algorithm="a*", heuristic="min"):
-        self.algorithm = algorithm
+        self.algorithm = self.get_algorithm(algorithm)
         self.initial_puzzle = puzzle
         self.h = get_heuristic_function(heuristic)
+        self.h_name = get_heuristic_name(heuristic)
+
+    def get_algorithm(self, name):
+        if name.lower() == "a*":
+            self.a_name = "A*"
+            return self.a_star
+        if name.lower() == "best":
+            self.a_name = "Best First"
+            return self.best_first
+        if name.lower() == "bfs":
+            self.a_name = "Breadth first search"
+            return self.bfs
+        if name.lower() == "dfs":
+            self.a_name = "depth first search"
+            return self.dfs
+        return None
 
     def solve(self):
+        print "_________________________"
+        print "Puzzle: "
         print self.initial_puzzle
-        print self.algorithm
+        print "Algorithm: " + self.a_name
+        print "Heurisitic if used: " + self.h_name
 
+        t = time.clock()
+        solution = self.algorithm()
+        completed_in = time.clock() - t
+
+        print "Time: " + `completed_in` + " seconds"
+
+        """Backtracking to count solution"""
+        current = Puzzle([1,2,3,4,5,6,7,8,0])
+        start = self.initial_puzzle
+        previous = solution
+        steps = 0
+        while current != start:
+            current = previous[current]
+            steps = steps + 1
+        
+        print "Steps: " + `steps`
+        print "_________________________"
+        return solution
+
+        
     """
         A* and Dijkstra's require a value for the each location.
         This is hard to set as every location is the same.
@@ -27,7 +67,7 @@ class Solver:
     def a_star(self):
         puzzles_available = PriorityQueue()
         previous_puzzle = {}
-        seen = set()    #We can use the previous_puzzle alone, However performance lowers
+        seen = set()    #We can use the previous_puzzle alone, However performance seems to suffer
         cost_so_far = {}
         
         puzzles_available.put(self.initial_puzzle, 0)
@@ -39,14 +79,13 @@ class Solver:
             seen.add(current_puzzle)
 
             if current_puzzle.solved():
-                print "Solved" #delete later
                 return previous_puzzle
 
             for new_hole_position in current_puzzle.possible_moves():
                 new_board = current_puzzle.move(new_hole_position)
                 new_cost = cost_so_far[current_puzzle]
                 new_cost += 1      #As all directions is 1, see general comment
-                if new_board not in seen:
+                if new_board not in seen or new_cost < cost_so_far[new_board]:
                     priority = self.h(new_board) + new_cost
                     puzzles_available.put(new_board, priority)
                     previous_puzzle[new_board] = current_puzzle
@@ -67,7 +106,6 @@ class Solver:
             seen.add(current_puzzle)
 
             if current_puzzle.solved():
-                print "Solved" #delete later
                 return previous_puzzle
 
             for new_hole_position in current_puzzle.possible_moves():
@@ -96,7 +134,6 @@ class Solver:
             seen.add(current_puzzle)
 
             if current_puzzle.solved():
-                print "Solved" #delete later
                 return previous_puzzle
 
             for new_hole_position in current_puzzle.possible_moves():
@@ -119,7 +156,6 @@ class Solver:
             seen.add(current_puzzle)
             
             if current_puzzle.solved():
-                print "Solved" #delete later
                 return previous_puzzle
 
             for new_hole_position in current_puzzle.possible_moves():

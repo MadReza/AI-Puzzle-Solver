@@ -14,6 +14,20 @@ def get_heuristic_function(heuristic):
         return nilsson
     return None
 
+def get_heuristic_name(heuristic):
+    if heuristic == "manhattan":
+        return "Manhattan Distance"
+    if heuristic == "misplaced":
+        return "Misplaced"
+    if heuristic == "min":
+        return "Min(Manhattan, Misplaced)"
+    if heuristic == "linear":
+        return "Linear Conflict"
+    if heuristic == "nilsson":
+        return "Nilsson"
+    return None
+
+
 """
     Assuming the Goal puzzle is having the empty at bottom right
     up and down movement cost puzzle.width
